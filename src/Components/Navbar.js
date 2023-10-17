@@ -12,7 +12,7 @@ function Navbar({ serverPort }) {
   const handleLogout = async () => {
     const response = await axios.post(`${serverPort}/logout`);
     signOut();
-    navigate('/home');
+    navigate('/');
   };
 
   return (
