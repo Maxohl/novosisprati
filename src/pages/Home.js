@@ -64,10 +64,15 @@ function Home(props) {
   };
 
   const formatDateString = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    };
     const date = new Date(dateString);
-    // Use the 'en-GB' locale for 'dd/mm/yyyy' format
-    return date.toLocaleDateString('en-GB');
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
   };
+  
   
   
 
