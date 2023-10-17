@@ -32,7 +32,7 @@ const Login = ({ serverPort }) => {
         authState: { username },
       });
 
-      navigate('/home');
+      navigate('/');
     } catch (error) {
       console.error('Error logging in:', error);
     }
