@@ -64,12 +64,19 @@ function Home(props) {
   };
 
   const formatDateString = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: 'numeric',
+      second: 'numeric',
+      timeZone: 'UTC', // Set the expected timezone (UTC)
+    };
     const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    return `${day}/${month}/${year}`;
+    return new Intl.DateTimeFormat('en-US', options).format(date);
   };
+  
 
   return (
     <div className="Homecontainer">
