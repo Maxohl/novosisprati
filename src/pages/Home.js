@@ -66,11 +66,12 @@ function Home(props) {
   const formatDateString = (dateString) => {
     const options = {
       year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      month: 'numeric',
+      day: 'numeric',
+      timeZone: 'UTC', // Set the expected timezone (UTC)
     };
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-GB', options).format(date);
+    return new Intl.DateTimeFormat('en-US', options).format(date);
   };
   
   
