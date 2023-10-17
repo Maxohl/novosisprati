@@ -1,0 +1,96 @@
+/* UpdateNavio.css */
+
+.navio-title {
+    text-align: center;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 60px;
+  }
+  
+  .navio-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 40px; /* Increase the value to add more space between columns */
+    margin-bottom: 50px;
+    column-gap: 100px;
+  }
+  
+  .form-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input,
+  textarea {
+    display: block;
+    width: 100%; /* Set the width to 100% for inputs and textareas */
+  }
+  
+  .textarea-container {
+    grid-column: 1 / span 2; /* Span the container across two columns */
+  }
+  
+  .textarea-container textarea {
+    width: 100%; /* Set the width to 100% for the textarea inside the container */
+    height: 100px;
+  }
+  
+  .buttons-container {
+    width: 380px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .save-button,
+  .delete-button {
+    width: 150px; /* Adjust the width as needed */
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+    border: none;
+    margin-bottom: 50px; /* Add the desired margin bottom */
+  }
+  
+  .save-button {
+    background-color: #007bff;
+  }
+  
+  .delete-button {
+    background-color: red;
+  }
+  
+  .save-button:hover {
+    background-color: blue;
+  }
+  
+  .delete-button:hover {
+    background-color: darkred;
+  }
+  
+
+  .flash-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .flash-message.success {
+    background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+    color: darkgreen;
+  }
+  
+  .flash-message.error {
+    background-color: rgba(255, 0, 0, 0.8); /* Red, 80% transparent */
+    color: darkred;
+  }

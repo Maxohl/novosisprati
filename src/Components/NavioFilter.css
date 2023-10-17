@@ -1,0 +1,98 @@
+/* Style for the overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 1000; /* Ensure it's on top of other content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style for the container in the middle */
+.navio-filter-container {
+  background-color: white; /* White background */
+  width: auto; /* Width set to auto */
+  max-width: 80%; /* Maximum width of 80% of the screen */
+  height: 500px; /* Fixed height of 500px */
+  overflow: auto; /* Add scroll bar if content overflows */
+  position: relative; /* Ensure z-index works as expected */
+  z-index: 1001; /* Make sure it's above the overlay */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for a subtle lift */
+  border: 1px solid black; /* Black border */
+  border-radius: 10px; /* Rounded edges */
+}
+
+/* Style for the header */
+.navio-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #4682B4;  
+  color: white; /* White text color */
+}
+
+/* Style for the close button */
+.close-button {
+  background: none;
+  border: none;
+  color: white; /* White color for the close button */
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Style for the input fields and select */
+.navio-filter-inputs {
+  display: flex;
+  padding: 10px;
+}
+
+.navio-filter-inputs input[type="text"],
+.navio-filter-inputs select {
+  flex-grow: 1;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-right: 10px;
+}
+
+/* Style for the table container with a maximum height and scrollbar */
+.navio-table-container {
+  max-height: 300px; /* Set a maximum height */
+  overflow-y: auto; /* Enable vertical scrollbar if content overflows */
+}
+
+/* Style for the table */
+.navio-filter-table {
+  margin: 0 auto;
+  width: 90%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  background-color: white; /* White background for the table */
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.navio-filter-table th,
+.navio-filter-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
+  width: auto;
+  border-bottom: none; /* Remove bottom border for horizontal lines */
+}
+
+/* Style for clickable cells under "Navio" */
+.navio-filter-table td.navio-cell {
+  cursor: pointer;
+}
+
+.navio-filter-table td.navio-cell:hover {
+  background-color: #4682B4; /* Change background color on hover */
+  color: white; /* White text color on hover */
+}
+

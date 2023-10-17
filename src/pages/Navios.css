@@ -1,0 +1,86 @@
+.Navioscontainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+
+}
+
+.Naviostitle {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.Naviosselect-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  margin-left: 250px;
+}
+
+.Naviosselect {
+  border: 2px solid #007bff;
+  border-radius: 4px;
+  background-color: #ffffff;
+  padding: 8px;
+  font-size: 16px;
+  width: 200px;
+}
+
+.Naviosbutton {
+  margin-left: 100px;
+  font-size: 16px;
+  padding: 8px 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.Naviosbutton:hover {
+  background-color: #0056b3;
+}
+
+
+.Navioslist {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.NavioslistItem {
+  list-style: none;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.NavioslistItemLink {
+  color: black;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.flash-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.flash-message.success {
+  background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+  color: darkgreen;
+}
+
+.flash-message.error {
+  background-color: rgba(255, 0, 0, 0.8); /* Red, 80% transparent */
+  color: darkred;
+}
+

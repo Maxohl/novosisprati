@@ -1,0 +1,24 @@
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4682B4;
+    padding: 10px;
+    border-radius: 10px;
+    margin: 10px 100px;
+  }
+  
+  .navbar button {
+    background-color: #4682B4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0 10px;
+  }
+  
+  .navbar button:hover {
+    color: black;
+  }
+  

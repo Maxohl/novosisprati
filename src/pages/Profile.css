@@ -1,0 +1,72 @@
+.profile-page {
+    text-align: center;
+  }
+  
+  .profile-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 60px;
+    gap: 60px;
+    border: 2px solid blue;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 650px; /* Adjust the value as per your preference */
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  
+  
+  .profile-info {
+    margin-right: 40px;
+    text-align: left;
+  }
+  
+  .profile-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .profile-label {
+    font-weight: bold;
+    margin-right: 5px;
+    align-self: flex-start;
+  }
+  
+  .profile-field {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .profile-input {
+    margin-right: 10px;
+  }
+  
+  .profile-save-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+
+  .flash-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .flash-message.success {
+    background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+    color: darkgreen;
+  }
+  
+  .flash-message.error {
+    background-color: rgba(255, 0, 0, 0.8); /* Red, 80% transparent */
+    color: white;
+  }
+  

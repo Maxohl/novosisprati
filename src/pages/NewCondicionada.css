@@ -1,0 +1,138 @@
+.NewCondicionadaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.NewCondicionadaTitle {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.NewCondicionadaForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.NewCondicionadaColumns {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.NewCondicionadaColumn {
+  display: flex;
+  flex-direction: column;
+  
+  width: 100%; /* Set the width to 50% for two columns */
+}
+
+.NewCondicionadaFormField {
+  display: flex;
+  flex-direction: column;
+  
+  margin-bottom: 10px;
+}
+
+.NewCondicionadaFormField label {
+  margin-bottom: 5px;
+}
+
+.NewCondicionadaFormField input,
+.NewCondicionadaFormField select,
+.NewCondicionadaFormField textarea {
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px solid silver;
+  width: 100%; /* Set the width to 100% for full-width fields */
+  box-sizing: border-box; /* Include padding and border in the width */
+}
+
+.NewCondicionadaFormField input[type="number"] {
+  width: 100%; /* Adjust the width as needed */
+}
+
+.radio-buttons-container {
+  display: flex;
+  align-items: center;
+  width: 80%;
+  margin-left: 100px;
+}
+
+.radio-container-label {
+  margin-right: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  white-space: nowrap; /* Prevent text from breaking to new lines */
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 5px;
+}
+
+.NewCondicionadaSubmitButton {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  align-self: center; /* Align button vertically */
+  width: 150px;
+}
+
+.NewCondicionadaSubmitButton:hover {
+  background-color: darkblue;
+}
+
+.NewCondicionadaColumns:last-child {
+  margin-top: 20px; /* Add some spacing between the sets of columns */
+}
+
+.NewCondicionadaColumns:last-child .NewCondicionadaColumn {
+  width: 100%; /* Set the width to 100% for full-width columns */
+}
+
+.NewCondicionadaFormField textarea {
+  height: 100px; /* Increase the height of the textarea */
+  width: 300px;
+}
+
+.flash-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+}
+
+.flash-message.success {
+  background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+  color: darkgreen;
+}
+
+.flash-message.error {
+  background-color: rgba(255, 0, 0, 0.8); /* Red, 80% transparent */
+  color: darkred;
+}
+
+.SearchButton {
+  margin-left: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+ 
+}
+
+
+
+

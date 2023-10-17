@@ -1,0 +1,85 @@
+.RequisicoesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  justify-content: center;
+  text-align: center;
+  padding-bottom: 60px;
+}
+
+.RequisicoesTitle {
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.AddButton {
+  padding: 10px 20px;
+  background-color: blue;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 40px;
+  margin-right: 40px;
+  
+}
+
+.AddButton:hover {
+  background-color: darkblue;
+}
+
+.RequisicoesList {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.RequisicoesListItem {
+  list-style: none;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid silver;
+  border-radius: 5px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.RequisicoesNavio {
+  font-weight: bold;
+  text-align: center;
+}
+
+.RequisicoesDetails {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.RequisicoesData {
+  margin-bottom: 5px;
+}
+
+.RequisicoesHora {
+  margin-top: 5px;
+}
+
+.flash-message {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+  color: darkgreen;
+  padding: 10px;
+  text-align: center;
+}
+
+

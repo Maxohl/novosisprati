@@ -1,0 +1,140 @@
+  .FullArea {
+    margin-bottom: 5rem;
+    padding-bottom: 10px;
+  }
+
+  .NewRequisicoesTitle {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .columns {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+  }
+  
+  .column {
+    flex-basis: 45%;
+    margin-right: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 0.5rem;
+    width: 80%;
+  }
+  
+  .inputField {
+    width: 80%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .textarea {
+    width: 60%;
+    height: 100px;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    margin-bottom: 0.5rem;
+  }
+
+  .ExtraArea {
+    width: 70%;
+  }
+  
+  .saveButtonContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  
+  .saveButton {
+    padding: 10px 20px;
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    width: 150px;
+  }
+  
+  .saveButton:hover {
+    background-color: darkblue;
+  }
+  
+  .obsColumn {
+    align-self: flex-end;
+  }
+
+  .radio-buttons-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left: 100px;
+  }
+  
+  .radio-container-label {
+    margin-right: 10px;
+  }
+  
+  .radio-label {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    white-space: nowrap; /* Prevent text from breaking to new lines */
+  }
+  
+  .radio-label input[type="radio"] {
+    margin-right: 5px;
+  }
+   
+
+  .flash-message {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .flash-message.success {
+    background-color: rgba(144, 238, 144, 0.8); /* Light green, 80% transparent */
+    color: white;
+  }
+  
+  .flash-message.error {
+    background-color: rgba(255, 0, 0, 0.8); /* Red, 80% transparent */
+    color: white;
+  }
+
+  .flash-message.warning {
+    background-color: rgba(255, 165, 0, 0.8); /* Orange, 80% transparent */
+    color: white;
+  }
+  
+
+  .loading-cursor {
+    cursor: wait;
+  }
+
+  .default-cursor {
+    cursor: default;
+  }
+
+  .navioCondicaoContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .show-hide-button {
+    margin-left: 10px; /* Adjust the margin as needed to separate the button from the select */
+  }

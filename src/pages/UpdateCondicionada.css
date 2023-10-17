@@ -1,0 +1,143 @@
+/* Styles for the whole screen */
+.whole-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 100px;
+}
+
+/* Styles for the title */
+.title {
+  text-align: center;
+}
+
+/* Styles for the content */
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+/* Styles for the columns (splitting content into two columns) */
+.columns {
+  display: flex;
+  justify-content: space-between; /* Split into two columns */
+  align-items: flex-start; /* Vertically align content at the top */
+  width: 100%;
+  margin-top: 20px; /* Space between columns and radio buttons */
+}
+
+/* Styles for each column */
+.column {
+  flex-basis: 48%; /* Adjust the width of columns */
+}
+
+/* Styles for labels */
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%; /* Labels take full width */
+}
+
+/* Styles for input fields */
+.input {
+  width: 100%; /* Inputs take full width */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  height: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 1rem;
+}
+
+.FatuField {
+  margin-top: 5rem;
+}
+
+/* Styles for the NavioFilter button */
+.show-hide-button {
+  display: flex;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.filterButton {
+  margin-left: 5px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding-bottom: 25px;
+}
+
+/* Styles for the radio buttons (centered) */
+.radio-buttons-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px; /* Space between radio buttons and buttons */
+  margin-right: 50px;
+
+}
+
+.radio-container-label {
+  margin-right: 10px;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  white-space: nowrap; /* Prevent text from breaking to new lines */
+}
+
+.radio-label input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Styles for buttons (centered) */
+.buttons {
+  display: flex;
+  justify-content: center; /* Center buttons horizontally */
+  align-items: center;
+  width: 100%;
+  margin-top: 20px; /* Space between buttons and bottom of the screen */
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+  margin-top: 1rem;
+  
+  margin-right: 1rem;
+}
+
+.button.save {
+  background-color: #007bff;
+}
+
+.button.save:hover {
+  background-color: #0056b3;
+}
+
+.button.delete {
+  background-color: #dc3545;
+}
+
+.button.delete:hover {
+  background-color: #a52a38;
+}

@@ -1,0 +1,27 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: lightgray;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  
+  .footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer-logo img {
+    height: 40px;
+  }
+  
+  .footer-disclaimer {
+    font-size: 12px;
+    color: #888;
+    margin-right: 100px;
+  }
+  

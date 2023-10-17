@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 100px;
+}
+
+.title {
+  text-align: center;
+}
+
+.columns {
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+  margin-left: 150px;
+  column-gap: 100px;
+}
+
+.column {
+  flex-basis: 45%;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  width: 100%;
+}
+
+.input {
+  width: 100%; /* Updated width */
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* Added box-sizing property */
+}
+
+.textarea {
+  width: 100%; /* Updated width */
+  height: 100px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  margin-bottom: 1rem;
+  box-sizing: border-box; /* Added box-sizing property */
+}
+
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  width: 200px;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.button.save {
+  background-color: #007bff;
+}
+
+.button.save:hover {
+  background-color: #0056b3;
+}
+
+.button.delete {
+  background-color: #dc3545;
+}
+
+.button.delete:hover {
+  background-color: #a52a38;
+}
+
+.button.download {
+  background-color: #66ff00;
+}
+
+.button.download:hover {
+  background-color: #0d8802;
+}
