@@ -64,18 +64,11 @@ function Home(props) {
   };
 
   const formatDateString = (dateString) => {
-    const options = {
-      year: 'numeric',
-      month: 'numeric',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: 'numeric',
-      second: 'numeric',
-      timeZone: 'UTC', // Set the expected timezone (UTC)
-    };
     const date = new Date(dateString);
-    return new Intl.DateTimeFormat('en-US', options).format(date);
+    // Use the 'en-GB' locale for 'dd/mm/yyyy' format
+    return date.toLocaleDateString('en-GB');
   };
+  
   
 
   return (
