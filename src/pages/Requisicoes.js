@@ -62,10 +62,20 @@ function Requisicoes(props) {
     navigate('/requisicoes/new');
   };
 
-  function formatDate(date) {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
-    return new Date(date).toLocaleDateString('en-GB', options);
-  }
+  // function formatDate(date) {
+  //   const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+  //   return new Date(date).toLocaleDateString('en-GB', options);
+  // }
+  const formatDate = (dateString) => {
+    const options = {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      timeZone: 'UTC', // Set the expected timezone (UTC)
+    };
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-GB', options).format(date);
+  };
 
   const handleItemClick = (requisicao) => {
     const selectedRequisicao = requisicoes.find(item => item.ID === requisicao.ID);
