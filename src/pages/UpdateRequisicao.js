@@ -237,7 +237,7 @@ const handleDownload = () => {
   formattedData += `Berço: ${berco}\n`;
   formattedData += `Posição: ${posicaoBerco}\n`;
   formattedData += `IMO: ${selectedNavio.IMO}\n`;
-  formattedData += `Bandeira: ${selectedNavio.bandeira}\n`;
+  formattedData += `Bandeira: ${selectedNavio.Bandeira}\n`;
   formattedData += `Armador: ${selectedNavio.armador}\n`;
   formattedData += `Carga: ${selectedNavio.Carga}\n`;
   formattedData += `GROSS: ${selectedNavio.GRT}\n`;
