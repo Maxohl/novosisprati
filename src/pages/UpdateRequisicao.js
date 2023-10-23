@@ -83,6 +83,7 @@ function UpdateRequisicao(props) {
       setPosicaoBerco(RequisicaoData.posicao_requi);
       setObs(RequisicaoData.Obs_requi);
       setFatu(RequisicaoData.Fatu_requi);
+      setSelectedRebocador(RequisicaoData.rebocador_requi);
     } else {
       navigate('/requisicoes')
     }
@@ -120,7 +121,7 @@ const handleSaveChanges = async () => {
       posicao_requi: posicaoBerco,
       Obs_requi: obs,
       Fatu_requi: fatu,
-      selectedRebocador
+      selectedRebocador,
     };
 
     await axios.put(
@@ -252,6 +253,8 @@ const handleDownload = () => {
 
   formattedData += `Faturamento: ${fatu}\n`;
   formattedData += `OBS: ${obs}\n`;
+  formattedData += `Rebocador: ${selectedRebocador}`;
+
 
   const fileName = `Requisicao ${utcDateString}`;
 

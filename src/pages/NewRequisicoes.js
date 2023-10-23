@@ -150,6 +150,7 @@
         posicao_requi: posicaoBerco,
         Obs_requi: obs,
         Fatu_requi: faturamento,
+        rebocador_requi: selectedRebocador
       };
     
       // Send the requisicaoData to the backend

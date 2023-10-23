@@ -102,6 +102,7 @@ function UpdateCondicionada(props) {
       setPosicaoBerco(condicionadaData.Posicao_Berco);
       setObs(condicionadaData.OBS);
       setFatu(condicionadaData.Fatu);
+      setSelectedRebocador(condicionadaData.Rebocador);
     } else {
       navigate('/condicionada')
     }
@@ -139,6 +140,7 @@ const handleSaveChanges = async () => {
       Posicao_Berco: posicaoBerco,
       OBS: obs,
       Fatu: fatu,
+      selectedRebocador,
     };
 
     await axios.put(
