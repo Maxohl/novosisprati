@@ -26,11 +26,21 @@ function UpdateRequisicao(props) {
   const [fatu, setFatu] = useState('');
   const [selectedRebocador, setSelectedRebocador] = useState('');
   const [rebocadores, setRebocadores] = useState([]);
+  const [showField, setShowField] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const flashMessage = useSelector((state) => state.flashMessage.flashMessage);
   const flashMessageType = useSelector((state) => state.flashMessage.flashMessageType);
+
+  const restrictedServices = [
+    'LEITURA_DE_CALADO',
+    'TRANSPORTE_DE_ENFERMOS',
+    'TRANSPORTE_DE_MANTIMENTOS',
+    'TRANSPORTE_DE_OBITOS',
+    'TRANSPORTE_DE_PASSAGEIROS',
+    'VISTORIA_DE_CASCO'
+  ];
 
 
   useEffect(() => {
@@ -84,6 +94,9 @@ function UpdateRequisicao(props) {
       setObs(RequisicaoData.Obs_requi);
       setFatu(RequisicaoData.Fatu_requi);
       setSelectedRebocador(RequisicaoData.rebocador_requi);
+      if (restrictedServices.includes(RequisicaoData.Requi_servico)) {
+        setShowField(false);
+      }
     } else {
       navigate('/requisicoes')
     }
@@ -122,6 +135,7 @@ const handleSaveChanges = async () => {
       Obs_requi: obs,
       Fatu_requi: fatu,
       selectedRebocador,
+      isLancha: !showField,
     };
 
     await axios.put(
@@ -235,6 +249,30 @@ const handleDownload = () => {
     formattedData += `TROCA DE BERÇO \n`;
   }
 
+  if(servico === 'LEITURA_DE_CALADO'){
+    formattedData += `LEITURA DE CALADO \n`
+  }
+
+  if(servico === 'TRANSPORTE_DE_ENFERMOS'){
+    formattedData += `TRANSPORTE DE ENFERMOS \n`
+  }
+
+  if(servico === 'TRANSPORTE_DE_MANTIMENTOS'){
+    formattedData += `TRANSPORTE DE MANTIMENTOS \n`
+  }  
+
+  if(servico === 'TRANSPORTE_DE_OBITOS'){
+    formattedData += `TRANSPORTE DE ÓBITOS \n`
+  }
+
+  if(servico === 'TRANSPORTE_DE_PASSAGEIROS'){
+    formattedData += `TRANSPORTE DE PASSAGEIROS \n`
+  }
+
+  if(servico === 'VISTORIA_DE_CASCO'){
+    formattedData += `VISTORIA DE CASCO \n`
+  }
+
   formattedData += `Berço: ${berco}\n`;
   formattedData += `Posição: ${posicaoBerco}\n`;
   formattedData += `IMO: ${selectedNavio.IMO}\n`;
@@ -270,6 +308,22 @@ const handleDownload = () => {
   return (
     <div style={{ paddingBottom: '100px' }}>
       <h1 className="title">Atualizar Requisição</h1>
+      
+      <div className="btn-container">
+        <button
+          className={`toggle-btn ${showField ? 'active' : ''}`}
+          onClick={() => setShowField(true)}
+        >
+          Requisição de Navios
+        </button>
+        <button
+          className={`toggle-btn ${!showField ? 'active' : ''}`}
+          onClick={() => setShowField(false)}
+        >
+          Requisição de Lancha
+        </button>
+      </div>
+
       <div className="columns">
         <div className="column">
           <label className="label">Navio</label>
@@ -282,8 +336,12 @@ const handleDownload = () => {
           <label className="label">Data</label>
           <input className="input" type="date" value={data.toISOString().slice(0, 10)} onChange={(e) => setData(new Date(e.target.value))} min={formatDate(new Date())} />
   
-          <label className="label">Posição Berço</label>
-          <input className="input" type="text" value={posicaoBerco} onChange={(e) => setPosicaoBerco(e.target.value)} />
+          {showField && (
+            <>
+              <label className="label">Posição Berço</label>
+              <input className="input" type="text" value={posicaoBerco} onChange={(e) => setPosicaoBerco(e.target.value)} />
+            </>
+          )}
 
           <label className="label">Viagem</label>
           <input className="input" type="number" value={viagem} onChange={(e) => setViagem(e.target.value)} />
@@ -291,21 +349,36 @@ const handleDownload = () => {
   
         <div className="column">
           <label className="label">Serviço</label>
-            <select className="input" value={servico} onChange={(e) => setServico(e.target.value)}>
-              <option value="ATRACACAO">ATRACAÇÃO</option>
-              <option value="DESATRACACAO">DESATRACAÇÃO</option>
-              <option value="DESATRACACAOF">DESATRACAÇÃO FUNDEIO</option>
-              <option value="FUNDEIO_INTERNO">FUNDEIO INTERNO</option>
-              <option value="PUXADA">PUXADA</option>
-              <option value="REATRACACAO">REATRACAÇÃO</option>
-              <option value="TROCA">TROCA DE BERÇO</option>
-            </select>      
+          {showField ? (
+              <select className="input" value={servico} onChange={(e) => setServico(e.target.value)}>
+                <option value="ATRACACAO">ATRACAÇÃO</option>
+                <option value="DESATRACACAO">DESATRACAÇÃO</option>
+                <option value="DESATRACACAOF">DESATRACAÇÃO FUNDEIO</option>
+                <option value="FUNDEIO_INTERNO">FUNDEIO INTERNO</option>
+                <option value="PUXADA">PUXADA</option>
+                <option value="REATRACACAO">REATRACAÇÃO</option>
+                <option value="TROCA">TROCA DE BERÇO</option>
+              </select>      
+            ) : (
+              <select className="input" value={servico} onChange={(event) => setServico(event.target.value)}>
+                  <option value="LEITURA_DE_CALADO">LEITURA DE CALADO</option>
+                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFERMOS</option>
+                  <option value="TRANSPORTE_DE_MANTIMENTOS">TRANSPORTE DE MANTIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
+                  <option value="TRANSPORTE_DE_OBITOS">TRANSPORTE DE ÓBITOS</option>
+                  <option value="TRANSPORTE_DE_PASSAGEIROS">TRANSPORTE DE PASSAGEIROS (MAX 6)</option>
+                  <option value="VISTORIA_DE_CASCO">VISTORIA DE CASCO</option>
+                </select>
+              )}
 
           <label className='label'>Hora</label> 
           <input className='input' type='time' value={hora} onChange={(e) => setHora(e.target.value)} />
-  
-          <label className="label">Berço</label>
-          <input className="input" type="number" min="1" max="3" value={berco} onChange={(e) => setBerco(e.target.value)} />
+          
+          {showField && (
+            <>
+              <label className="label">Berço</label>
+              <input className="input" type="number" min="1" max="3" value={berco} onChange={(e) => setBerco(e.target.value)} />
+            </>
+          )}
 
         </div>
       </div>
@@ -323,29 +396,31 @@ const handleDownload = () => {
         </div>
       </div>
 
-      <div className="radio-buttons-container">
-          <label className="radio-container-label"><b>Rebocadores:</b></label>
-          {rebocadores.map((rebocador) => (
-            <label key={rebocador.ID} className="radio-label">
+      {showField && (
+        <div className="radio-buttons-container">
+            <label className="radio-container-label"><b>Rebocadores:</b></label>
+            {rebocadores.map((rebocador) => (
+              <label key={rebocador.ID} className="radio-label">
+                <input
+                  type="radio"
+                  value={rebocador.nome}
+                  checked={selectedRebocador === rebocador.nome}
+                  onChange={() => setSelectedRebocador(rebocador.nome)}
+                />
+                {rebocador.nome}
+              </label>
+            ))}
+            <label className="radio-label">
               <input
                 type="radio"
-                value={rebocador.nome}
-                checked={selectedRebocador === rebocador.nome}
-                onChange={() => setSelectedRebocador(rebocador.nome)}
+                value="naoEnviarEmail"
+                checked={selectedRebocador === 'naoEnviarEmail'}
+                onChange={() => setSelectedRebocador('naoEnviarEmail')}
               />
-              {rebocador.nome}
+              Não Mencionar.
             </label>
-          ))}
-          <label className="radio-label">
-            <input
-              type="radio"
-              value="naoEnviarEmail"
-              checked={selectedRebocador === 'naoEnviarEmail'}
-              onChange={() => setSelectedRebocador('naoEnviarEmail')}
-            />
-            Não Mencionar.
-          </label>
-      </div>
+        </div>
+      )}
   
       <div className="buttons">
         <button className="button save" onClick={handleSaveChanges}>Salvar Alterações</button>

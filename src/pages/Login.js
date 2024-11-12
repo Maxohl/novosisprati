@@ -23,6 +23,7 @@ const Login = ({ serverPort }) => {
         username: username,
         password: password,
       });
+      console.log("Response: ",response);
       const flash = response.data.success;
       dispatch(setFlashMessage({ message: flash, messageType: 'success' })); 
       signIn({

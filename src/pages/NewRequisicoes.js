@@ -22,6 +22,7 @@
     const [isLoading, setIsLoading] = useState(false);
     const [rebocadores, setRebocadores] = useState([]);
     const [selectedRebocador, setSelectedRebocador] = useState('');
+    const [showField, setShowField] = useState(true)
 
 
     const dispatch = useDispatch();
@@ -121,8 +122,6 @@
         !selectedNavio ||
         !data ||
         !hora ||
-        !berco ||
-        !posicaoBerco ||
         !viagem 
 
       ) {
@@ -150,7 +149,8 @@
         posicao_requi: posicaoBerco,
         Obs_requi: obs,
         Fatu_requi: faturamento,
-        rebocador_requi: selectedRebocador
+        rebocador_requi: selectedRebocador,
+        isLancha: !showField,
       };
     
       // Send the requisicaoData to the backend
@@ -277,6 +277,22 @@
           {flashMessage}
         </div>
       )}
+
+      <div className="btn-container">
+        <button
+          className={`toggle-btn ${showField ? 'active' : ''}`}
+          onClick={() => setShowField(true)}
+        >
+          Requisição de Navios
+        </button>
+        <button
+          className={`toggle-btn ${!showField ? 'active' : ''}`}
+          onClick={() => setShowField(false)}
+        >
+          Requisição de Lancha
+        </button>
+      </div>
+
       <form className="NewRequisicoesForm" onSubmit={handleSubmit}>
         <div className="columns">
           <div className="column">
@@ -309,36 +325,57 @@
               min={new Date().toISOString().split('T')[0]}
               onChange={(event) => setData(event.target.value)}
             />
-
-            <label className="label" htmlFor="berco">
-              Berço:
-            </label>
-            <input
-              className="inputField"
-              type="number"
-              min="1"
-              max="3"
-              value={berco}
-              onChange={(event) => setBerco(event.target.value)}
-            />
+            
+            {showField && (
+              <>
+                <label className="label" htmlFor="berco">
+                  Berço:
+                </label>
+                <input
+                  className="inputField"
+                  type="number"
+                  min="1"
+                  max="3"
+                  value={berco}
+                  onChange={(event) => setBerco(event.target.value)}
+                />
+            </>
+            )}
 
             <label className="label" htmlFor="servico">
               Serviço:
             </label>
-            <select
-              className="inputField"
-              id="servico"
-              value={servico}
-              onChange={(event) => setServico(event.target.value)}
-            >
-              <option value="ATRACACAO">ATRACAÇÃO</option>
-              <option value="DESATRACACAO">DESATRACAÇÃO</option>
-              <option value="DESATRACACAOF">DESATRACAÇÃO FUNDEIO</option>
-              <option value="FUNDEIO_INTERNO">FUNDEIO INTERNO</option>
-              <option value="PUXADA">PUXADA</option>
-              <option value="REATRACACAO">REATRACAÇÃO</option>
-              <option value="TROCA">TROCA DE BERÇO</option>
-            </select>
+
+              {showField ? (
+                <select
+                  className="inputField"
+                  id="servico"
+                  value={servico}
+                  onChange={(event) => setServico(event.target.value)}
+                >
+                  <option value="ATRACACAO">ATRACAÇÃO</option>
+                  <option value="DESATRACACAO">DESATRACAÇÃO</option>
+                  <option value="DESATRACAACAOF">DESATRACAÇÃO FUNDEIO</option>
+                  <option value="FUNDEIO_INTERNO">FUNDEIO INTERNO</option>
+                  <option value="PUXADA">PUXADA</option>
+                  <option value="REATRACACAO">REATRACACÃO</option>
+                  <option value="TROCA">TROCA DE BERÇO</option>
+                </select>
+              ) : (
+                <select
+                  className="inputField"
+                  id="servico"
+                  value={servico}
+                  onChange={(event) => setServico(event.target.value)}
+                >
+                  <option value="LEITURA_DE_CALADO">LEITURA DE CALADO</option>
+                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFERMOS</option>
+                  <option value="TRANSPORTE_DE_MANTIMENTOS">TRANSPORTE DE MANTIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
+                  <option value="TRANSPORTE_DE_OBITOS">TRANSPORTE DE ÓBITOS</option>
+                  <option value="TRANSPORTE_DE_PASSAGEIROS">TRANSPORTE DE PASSAGEIROS (MAX 6)</option>
+                  <option value="VISTORIA_DE_CASCO">VISTORIA DE CASCO</option>
+                </select>
+              )}
             
             <div className='ExtraArea'>
               <label className="label" htmlFor="obs">
@@ -368,16 +405,20 @@
                 onChange={handleHoraChange}
               />
 
-              <label className="label" htmlFor="posicaoBerco">
-                Posição Berço:
-              </label>
-              <input
-                className="inputField"
-                id="posicaoBerco"
-                type="text"
-                value={posicaoBerco}
-                onChange={(event) => setPosicaoBerco(event.target.value)}
-              />
+              {showField && (
+                <>
+                  <label className="label" htmlFor="posicaoBerco">
+                    Posição Berço:
+                  </label>
+                  <input
+                    className="inputField"
+                    id="posicaoBerco"
+                    type="text"
+                    value={posicaoBerco}
+                    onChange={(event) => setPosicaoBerco(event.target.value)}
+                  />
+                </>
+              )}
 
               <label className="label" htmlFor="viagem">
                 Viagem:
@@ -405,6 +446,7 @@
           </div>
         </div>
 
+        {showField && (
         <div className="radio-buttons-container">
           <label className="radio-container-label"><b>Rebocador:</b></label>
           {rebocadores.map((rebocador) => (
@@ -428,6 +470,7 @@
             Não Mencionar.
           </label>
         </div>
+        )}
         
 
         <div className={`saveButtonContainer ${isLoading ? 'loading-cursor' : 'default-cursor'}` }>

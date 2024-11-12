@@ -82,22 +82,23 @@ function Requisicoes(props) {
     navigate(`/requisicoes/${requisicao.ID}`, { state: { requisicaoData: selectedRequisicao } });
   }
 
+  const serviceMapping = {
+    'ATRACACAO': 'ATRACAÇÃO',
+    'DESATRACACAO': 'DESATRACAÇÃO',
+    'REATRACACAO': 'REATRACAÇÃO',
+    'DESATRACACAOF': 'DESATRACAÇÃO FUNDEIO',
+    'FUNDEIO_INTERNO': 'FUNDEIO INTERNO',
+    'TROCA': 'TROCA DE BERÇO',
+    'LEITURA_DE_CALADO': 'LEITURA DE CALADO',
+    'TRANSPORTE_DE_ENFERMOS': 'TRANSPORTE DE ENFERMOS',
+    'TRANSPORTE_DE_MANTIMENTOS': 'TRANSPORTE DE MANTIMENTOS',
+    'TRANSPORTE_DE_OBITOS': 'TRANSPORTE DE ÓBITOS',
+    'TRANSPORTE_DE_PASSAGEIROS': 'TRANSPORTE DE PASSAGEIROS',
+    'VISTORIA_DE_CASCO': 'VISTORIA DE CASCO'
+  };
+  
   const renderRequiServico = (requiServico) => {
-    if (requiServico === 'ATRACACAO') {
-      return 'ATRACAÇÃO';
-    } else if (requiServico === 'DESATRACACAO') {
-      return 'DESATRACAÇÃO';
-    } else if (requiServico === 'REATRACACAO') {
-      return 'REATRACAÇÃO';
-    } else if (requiServico === 'DESATRACACAOF'){
-      return 'DESATRACAÇÃO FUNDEIO'
-    } else if (requiServico === 'FUNDEIO_INTERNO'){
-      return 'FUNDEIO INTERNO'
-    } else if (requiServico === 'TROCA') {
-      return 'TROCA DE BERÇO'
-    } else {
-      return requiServico;
-    }
+    return serviceMapping[requiServico] || requiServico;
   };
 
   return (
