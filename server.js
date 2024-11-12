@@ -17,7 +17,7 @@
   require('dotenv').config();
 
   // Use the 'path' module to create the correct path to the 'build' folder
-  //const buildPath = path.join(__dirname, 'build');
+  const buildPath = path.join(__dirname, 'build');
  
 
   app.use(cors({
@@ -27,11 +27,8 @@
     ]
   }));
 
-  app.options('*', cors());
- 
-  
 
-  //app.use(express.static(buildPath));
+  app.use(express.static(buildPath));
 
   // Create a connection pool
   const pool = mysql.createPool({
