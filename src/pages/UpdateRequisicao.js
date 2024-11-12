@@ -254,11 +254,11 @@ const handleDownload = () => {
   }
 
   if(servico === 'TRANSPORTE_DE_ENFERMOS'){
-    formattedData += `TRANSPORTE DE ENFERMOS \n`
+    formattedData += `TRANSPORTE DE ENFÊRMOS \n`
   }
 
-  if(servico === 'TRANSPORTE_DE_MANTIMENTOS'){
-    formattedData += `TRANSPORTE DE MANTIMENTOS \n`
+  if(servico === 'TRANSPORTE_DE_SUPRIMENTOS'){
+    formattedData += `TRANSPORTE DE SUPRIMENTOS \n`
   }  
 
   if(servico === 'TRANSPORTE_DE_OBITOS'){
@@ -362,8 +362,8 @@ const handleDownload = () => {
             ) : (
               <select className="input" value={servico} onChange={(event) => setServico(event.target.value)}>
                   <option value="LEITURA_DE_CALADO">LEITURA DE CALADO</option>
-                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFERMOS</option>
-                  <option value="TRANSPORTE_DE_MANTIMENTOS">TRANSPORTE DE MANTIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
+                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFÊRMOS</option>
+                  <option value="TRANSPORTE_DE_SUPRIMENTOS">TRANSPORTE DE SUPRIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
                   <option value="TRANSPORTE_DE_OBITOS">TRANSPORTE DE ÓBITOS</option>
                   <option value="TRANSPORTE_DE_PASSAGEIROS">TRANSPORTE DE PASSAGEIROS (MAX 6)</option>
                   <option value="VISTORIA_DE_CASCO">VISTORIA DE CASCO</option>

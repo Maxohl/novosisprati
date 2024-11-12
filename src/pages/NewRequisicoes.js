@@ -376,8 +376,8 @@
                   onChange={(event) => setServico(event.target.value)}
                 >
                   <option value="LEITURA_DE_CALADO">LEITURA DE CALADO</option>
-                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFERMOS</option>
-                  <option value="TRANSPORTE_DE_MANTIMENTOS">TRANSPORTE DE MANTIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
+                  <option value="TRANSPORTE_DE_ENFERMOS">TRANSPORTE DE ENFÊRMOS</option>
+                  <option value="TRANSPORTE_DE_SUPRIMENTOS">TRANSPORTE DE SUPRIMENTOS (INFORMAR PESO TOTAL NO OBS)</option>
                   <option value="TRANSPORTE_DE_OBITOS">TRANSPORTE DE ÓBITOS</option>
                   <option value="TRANSPORTE_DE_PASSAGEIROS">TRANSPORTE DE PASSAGEIROS (MAX 6)</option>
                   <option value="VISTORIA_DE_CASCO">VISTORIA DE CASCO</option>
