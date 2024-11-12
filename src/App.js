@@ -20,8 +20,8 @@ import ProfilePage from './pages/Profile';
 
 
 function App() {
-   const serverPort = 'https://sispratibackend-eccb6aae0b16.herokuapp.com';
-  //const serverPort = process.env.PORT || 3000;
+   //const serverPort = 'https://sispratibackend-eccb6aae0b16.herokuapp.com';
+  const serverPort = process.env.PORT || 3000;
   const [navios] = useState([]);
 
   return (
