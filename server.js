@@ -321,6 +321,7 @@ async function sendEmail(ID_Navio, ID_Agencia, dataRequisicao, isCondicionada, s
     ${isCondicionada ? `<p><b> OBS: </b>Condicionado ao ${NavioSub}</p>` : ''}
     ${isCondicionada ? (dataRequisicao.Berco ? `<p><b> BERÇO: </b> ${dataRequisicao.Berco}</p>` : '') : (dataRequisicao.berco_requi ? `<p><b> BERÇO: </b> ${dataRequisicao.berco_requi}</p>` : '')}
     ${isCondicionada ? (dataRequisicao.Posicao_Berco ? `<p><b> POSIÇÃO: </b> ${dataRequisicao.Posicao_Berco}</p>` : '') : (dataRequisicao.posicao_requi ? `<p><b> POSIÇÃO: </b> ${dataRequisicao.posicao_requi}</p>` : '')}
+    <p><b> ARMADOR: </b> ${navioData.armador} </p>
     <p><b> IMO: </b> ${navioData.IMO}</p>
     <p><b> BANDEIRA: </b> ${navioData.Bandeira}</p>
     ${
