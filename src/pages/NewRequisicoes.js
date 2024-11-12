@@ -281,7 +281,10 @@
       <div className="btn-container">
         <button
           className={`toggle-btn ${showField ? 'active' : ''}`}
-          onClick={() => setShowField(true)}
+          onClick={() => {
+            setShowField(true);
+            setServico("ATRACAÇÃO");
+          }}
         >
           Requisição de Navios
         </button>
