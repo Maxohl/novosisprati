@@ -286,10 +286,13 @@
           Requisição de Navios
         </button>
         <button
-          className={`toggle-btn ${!showField ? 'active' : ''}`}
-          onClick={() => setShowField(false)}
+            className={`toggle-btn ${!showField ? 'active' : ''}`}
+            onClick={() => {
+              setShowField(false);
+              setServico("LEITURA DE CALADO");
+            }}
         >
-          Requisição de Lancha
+            Requisição de Lancha
         </button>
       </div>
 
