@@ -1,1 +1,1 @@
-web: node src/database/server.js
+web: npm start
