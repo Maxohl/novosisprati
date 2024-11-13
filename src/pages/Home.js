@@ -36,7 +36,6 @@ function Home(props) {
     fetchCondicionado();
   }, [serverPort]);
 
-
   useEffect(() => {
     const flashTimeout = setTimeout(() => {
       dispatch(setFlashMessage(''));
@@ -74,15 +73,16 @@ function Home(props) {
     const date = new Date(dateString);
     return new Intl.DateTimeFormat('en-GB', options).format(date);
   };
-  
-  
-  
+
+  const requisicoesWithBerco = requisicoes.filter(requisicao => requisicao.berco_requi);
+  const requisicoesWithoutBerco = requisicoes.filter(requisicao => !requisicao.berco_requi);
 
   return (
     <div className="Homecontainer">
       {flashMessage && <div className="flash-message">{flashMessage}</div>}
       <div>
         <h1 className="Homeheading">Pagina Inicial</h1>
+
         <div>
           <h2 className="TableTitle">Requisições do dia</h2>
           <table className="HomeTable">
@@ -94,7 +94,7 @@ function Home(props) {
               </tr>
             </thead>
             <tbody>
-              {requisicoes.map((requisicao) => (
+              {requisicoesWithBerco.map((requisicao) => (
                 <tr key={requisicao.ID}>
                   <td>{requisicao.Navio}</td>
                   <td>{renderRequiServico(requisicao.Requi_servico)}</td>
@@ -104,6 +104,7 @@ function Home(props) {
             </tbody>
           </table>
         </div>
+
         <div>
           <h2 className="TableTitle">Requisições Condicionadas</h2>
           <table className="HomeTable">
@@ -127,11 +128,35 @@ function Home(props) {
             </tbody>
           </table>
         </div>
+
+        <div>
+          <h2 className="TableTitle">Requisições de Lancha</h2>
+          <table className="HomeTable">
+            <thead>
+              <tr>
+                <th>Navio</th>
+                <th>Serviço</th>
+                <th>Horário</th>
+              </tr>
+            </thead>
+            <tbody>
+              {requisicoesWithoutBerco.map((requisicao) => (
+                <tr key={requisicao.ID}>
+                  <td>{requisicao.Navio}</td>
+                  <td>{renderRequiServico(requisicao.Requi_servico)}</td>
+                  <td>{requisicao.Hora_requi}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
       </div>
     </div>
   );
 }
 
 export default Home;
+
 
 //55b04e8871ca4e63a8e135726230408

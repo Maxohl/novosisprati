@@ -286,7 +286,7 @@
             setServico("ATRACAÇÃO");
           }}
         >
-          Requisição de Navios
+          Requisição de Praticagem
         </button>
         
         <button
