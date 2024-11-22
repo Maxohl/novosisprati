@@ -12,7 +12,6 @@
     const [navios, setNavios] = useState([]);
     const [selectedNavio, setSelectedNavio] = useState('');
     const [data, setData] = useState('');
-    const [servico, setServico] = useState('');
     const [hora, setHora] = useState('');
     const [berco, setBerco] = useState('');
     const [posicaoBerco, setPosicaoBerco] = useState('');
@@ -23,6 +22,7 @@
     const [rebocadores, setRebocadores] = useState([]);
     const [selectedRebocador, setSelectedRebocador] = useState('');
     const [showField, setShowField] = useState(true)
+    const [servico, setServico] = useState(showField ? "ATRACACAO" : "LEITURA_DE_CALADO");
 
 
     const dispatch = useDispatch();
@@ -109,8 +109,11 @@
           setViagem(selectedNavioObject.Viagem);
         }
       }
-      setServico('ATRACACAO');
     }, [selectedNavio, navios]);
+
+    useEffect(() => {
+      setServico(showField ? "ATRACACAO" : "LEITURA_DE_CALADO");
+    }, [showField]);
     
     
 
@@ -283,7 +286,7 @@
           className={`toggle-btn ${showField ? 'active' : ''}`}
           onClick={() => {
             setShowField(true);
-            setServico("ATRACAÇÃO");
+            setServico("ATRACACAO");
           }}
         >
           Requisição de Praticagem
@@ -293,7 +296,7 @@
             className={`toggle-btn ${!showField ? 'active' : ''}`}
             onClick={() => {
               setShowField(false);
-              setServico("LEITURA DE CALADO");
+              setServico("LEITURA_DE_CALADO");
             }}
         >
             Requisição de Lancha
