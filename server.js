@@ -214,8 +214,6 @@ const service = isCondicionada
 ? serviceMap[dataRequisicao.Servico]
 : serviceMap[dataRequisicao.Requi_servico];
 
-console.log('ID Navio: ',ID_Navio);
-
 // Execute queries to retrieve data
 const [navioData, agenciaData] = await Promise.all([
   new Promise((resolve, reject) => {
@@ -308,7 +306,7 @@ let emailContent = `
   <h1><b>${agenciaData.nome_agencia}</b></h1>
   <br>
   ${
-    (isCondicionada || (dataRequisicao.berco_requi && dataRequisicao.berco_requi.trim() !== ''))
+    (isCondicionada || dataRequisicao.berco_requi)
       ? `
       <p><b>REQUISIÇÃO DE SERVIÇOS DE PRATICAGEM</b></p>
       `
@@ -325,7 +323,7 @@ let emailContent = `
   <p><b> IMO: </b> ${navioData.IMO}</p>
   <p><b> BANDEIRA: </b> ${navioData.Bandeira}</p>
   ${
-    dataRequisicao.berco_requi && dataRequisicao.berco_requi.trim() !== ''
+    !dataRequisicao.berco_requi && !dataRequisicao.Berco
       ? `
     <p><b> CARGA: </b> ${navioData.Carga}</p>
     <p><b> GROSS: </b> ${navioData.GRT}</p>
@@ -378,6 +376,7 @@ try {
   const response = await sgMail.send(msg);
   console.log('Email sent successfully');
   console.log('SendGrid API response:', response);
+  //console.log(msg);
  } catch (error) {
    console.error('Error sending email:', error);
   if (error.response) {
@@ -1321,8 +1320,6 @@ const {
   Fatu,
   selectedRebocador,
 } = req.body;
-
-console.log('Req.body = ', req.body);
 
 const IDCookie = req.headers['idcookie'];
 
