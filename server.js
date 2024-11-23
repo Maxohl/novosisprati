@@ -214,6 +214,9 @@ const service = isCondicionada
 ? serviceMap[dataRequisicao.Servico]
 : serviceMap[dataRequisicao.Requi_servico];
 
+console.log("service: ",service)
+console.log("serviceMap: ",serviceMap)
+
 // Execute queries to retrieve data
 const [navioData, agenciaData] = await Promise.all([
   new Promise((resolve, reject) => {
@@ -302,6 +305,7 @@ const horaRequiFormatted = !isCondicionada && dataRequisicao.Hora_requi
 
 
 // Prepare the email content
+console.log("Data requisicao : ",dataRequisicao)
 let emailContent = `
   <h1><b>${agenciaData.nome_agencia}</b></h1>
   <br>
@@ -323,7 +327,7 @@ let emailContent = `
   <p><b> IMO: </b> ${navioData.IMO}</p>
   <p><b> BANDEIRA: </b> ${navioData.Bandeira}</p>
   ${
-    !dataRequisicao.berco_requi && !dataRequisicao.Berco
+    dataRequisicao.berco_requi || (isCondicionada && dataRequisicao.Berco)
       ? `
     <p><b> CARGA: </b> ${navioData.Carga}</p>
     <p><b> GROSS: </b> ${navioData.GRT}</p>
