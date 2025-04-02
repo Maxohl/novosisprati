@@ -27,6 +27,8 @@ function NewCondicionada(props) {
   const [posicaoBerco, setPosicaoBerco] = useState('');
   const [faturamento, setFaturamento] = useState('');
   const [obs, setObs] = useState('');
+  const [responsavelNavio, setResponsavelNavio] = useState('');
+  const [contatoResponsavel, setContatoResponsavel] = useState('');
   const [rebocadores, setRebocadores] = useState([]);
   const [agencias, setAgencias] = useState([]);
   const [selectedRebocador, setSelectedRebocador] = useState('');
@@ -126,6 +128,8 @@ function NewCondicionada(props) {
       Posicao_Berco: posicaoBerco,
       OBS: obs,
       Fatu: faturamento,
+      responsavelNavio: responsavelNavio,
+      contatoResponsavel: contatoResponsavel,
       selectedRebocador
     };
 
@@ -168,6 +172,8 @@ function NewCondicionada(props) {
       setBerco('');
       setPosicaoBerco('');
       setFaturamento('');
+      setResponsavelNavio('');
+      setContatoResponsavel('');
       setObs('');
       navigate('/condicionada');
     } catch (error) {
@@ -239,6 +245,19 @@ function NewCondicionada(props) {
             required
           />
         </div>
+        
+        <h4>Responsável pelo Navio</h4>
+        <div className='NewCondicionadaFormField'>
+            <label htmlFor="responsavelNavio">Nome:</label>
+            <input
+              type="text"
+              id="responsavelNavio"
+              value={responsavelNavio}
+              onChange={(e) => setResponsavelNavio(e.target.value)}
+              required
+            />
+        </div>    
+
         <div className="NewCondicionadaFormField">
         <label className="label">Serviço</label>
           <select className="input" value={servico} onChange={(e) => setServico(e.target.value)}>
@@ -307,6 +326,19 @@ function NewCondicionada(props) {
             max="3"
           />
         </div>
+         
+        <h4 style={{ visibility: 'hidden' }}>Nothing here</h4>
+        <div className='NewCondicionadaFormField'>
+            <label htmlFor="contatoResponsavel">Celular:</label>
+            <input
+              type="text"
+              id="contatoResponsavel"
+              value={contatoResponsavel}
+              onChange={(e) => setContatoResponsavel(e.target.value)}
+              required
+            />
+        </div>
+
       </div>
     </div>
     <div className="NewCondicionadaColumns">

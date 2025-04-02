@@ -26,6 +26,8 @@ function UpdateCondicionada(props) {
   const [posicaoBerco, setPosicaoBerco] = useState('');
   const [obs, setObs] = useState('');
   const [fatu, setFatu] = useState('');
+  const [responsavelNavio, setResponsavelNavio] = useState('');
+  const [contatoResponsavel, setContatoResponsavel] = useState('');
   const [rebocadores, setRebocadores] = useState([]);
   const [agencias, setAgencias] = useState([]);
   const [selectedRebocador, setSelectedRebocador] = useState('');
@@ -102,6 +104,8 @@ function UpdateCondicionada(props) {
       setPosicaoBerco(condicionadaData.Posicao_Berco);
       setObs(condicionadaData.OBS);
       setFatu(condicionadaData.Fatu);
+      setResponsavelNavio(condicionadaData.responsavel_navio);
+      setContatoResponsavel(condicionadaData.contato_responsavel);
       setSelectedRebocador(condicionadaData.Rebocador);
     } else {
       navigate('/condicionada')
@@ -140,6 +144,8 @@ const handleSaveChanges = async () => {
       Posicao_Berco: posicaoBerco,
       OBS: obs,
       Fatu: fatu,
+      responsavelNavio: responsavelNavio,
+      contatoResponsavel: contatoResponsavel,
       selectedRebocador,
     };
 
@@ -202,6 +208,8 @@ const handleDeleteCondicionada = () => {
       Servico: servico,
       Berco: berco,
       Posicao_Berco: posicaoBerco,
+      responsavelNavio: responsavelNavio,
+      contatoResponsavel: contatoResponsavel,
       OBS: obs,
       Fatu: fatu,
     };
@@ -264,6 +272,12 @@ const handleDeleteCondicionada = () => {
           <label className="label">Data</label>
           <input className="input" type="date" value={data.toISOString().slice(0, 10)} onChange={(e) => setData(new Date(e.target.value))} min={formatDate(new Date())} />
         </div>
+        
+        <h4>Responsável pelo Navio</h4>
+        <div className='Field'>
+          <label className='label'>Nome:</label>
+          <input className='input' type='text' value={responsavelNavio} onChange={(e) => setResponsavelNavio(e.target.value)} />
+        </div>
 
         <div className='Field'>
           <label className="label">Posição Berço</label>
@@ -314,6 +328,12 @@ const handleDeleteCondicionada = () => {
             <option value="REATRACACAO">REATRACAÇÃO</option>
             <option value="TROCA">TROCA DE BERÇO</option>
           </select>
+        </div>
+
+        <h4 style={{ visibility: 'hidden' }}>Nothing here</h4>
+        <div className='Field'>
+          <label className='label'>Celular:</label>
+          <input className='input' type='text' value={contatoResponsavel} onChange={(e) => setContatoResponsavel(e.target.value)} />
         </div>
 
         <div className='Field'>

@@ -26,6 +26,9 @@ function UpdateRequisicao(props) {
   const [fatu, setFatu] = useState('');
   const [selectedRebocador, setSelectedRebocador] = useState('');
   const [rebocadores, setRebocadores] = useState([]);
+  const [responsavelNavio, setResponsavelNavio] = useState('');
+  const [contatoResponsavel, setContatoResponsavel] = useState('');
+  const [nomeAgencia, setNomeAgencia] = useState('');
   const [showField, setShowField] = useState(true);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -80,6 +83,43 @@ function UpdateRequisicao(props) {
   }, [serverPort]);
 
   useEffect(() => {
+    const fetchProfileData = async () => {
+      try {
+        // Get the IDCookie and token
+        const authStateCookie = document.cookie
+          .split('; ')
+          .find((row) => row.startsWith('_auth_state'));
+        if (!authStateCookie) {
+          navigate('/login');
+          return;
+        }
+  
+        const IDCookie = document.cookie
+          .split(';')
+          .find((row) => row.startsWith('_auth'))
+          .split('=')[1];
+  
+        const token = authStateCookie.split('=')[1];
+  
+        // Fetch the profile data
+        const profileResponse = await axios.get(`${serverPort}/profile`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            IDCookie: IDCookie,
+          },
+        });
+        const profileData = profileResponse.data;
+        setNomeAgencia(profileData.nomeAgencia);
+      } catch (error) {
+        console.error('Error fetching profile data:', error);
+        navigate('/login'); // Redirect to login on error (optional)
+      }
+    };
+  
+    fetchProfileData();
+  }, [navigate, serverPort]);
+
+  useEffect(() => {
     const flashTimeout = setTimeout(() => {
       dispatch(setFlashMessage('', ''));
     }, 3000);
@@ -94,6 +134,8 @@ function UpdateRequisicao(props) {
       setObs(RequisicaoData.Obs_requi);
       setFatu(RequisicaoData.Fatu_requi);
       setSelectedRebocador(RequisicaoData.rebocador_requi);
+      setResponsavelNavio(RequisicaoData.responsavel_navio);
+      setContatoResponsavel(RequisicaoData.contato_responsavel);
       if (restrictedServices.includes(RequisicaoData.Requi_servico)) {
         setShowField(false);
       }
@@ -108,9 +150,8 @@ function UpdateRequisicao(props) {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+    
   };
-  
-  
 
 const handleSaveChanges = async () => {
   try {
@@ -136,6 +177,8 @@ const handleSaveChanges = async () => {
       Fatu_requi: fatu,
       selectedRebocador,
       isLancha: !showField,
+      responsavelNavio: responsavelNavio,
+      contatoResponsavel: contatoResponsavel
     };
 
     await axios.put(
@@ -212,11 +255,13 @@ const handleDeleteRequisicao = () => {
   }
 };
 
-const handleDownload = () => {
+const handleDownload = async() => {
   const utcDateString = data.toISOString().split('T')[0];
   const selectedNavio = naviosList.find(navio => navio.ID === navioID);
 
   let formattedData = '';
+
+  formattedData += ` ${nomeAgencia.toUpperCase()} \n\n`;
   
   if(servico === 'TROCA' || servico === 'PUXADA'){
     formattedData += `Sem a utilização dos serviços de lancha \n`;
@@ -275,6 +320,9 @@ const handleDownload = () => {
 
   formattedData += `Berço: ${berco}\n`;
   formattedData += `Posição: ${posicaoBerco}\n`;
+  formattedData += `\nResponsável pelo Navio\n`;
+  formattedData += ` Nome: ${responsavelNavio}\n`
+  formattedData += ` Celular: ${contatoResponsavel}\n\n`
   formattedData += `IMO: ${selectedNavio.IMO}\n`;
   formattedData += `Bandeira: ${selectedNavio.Bandeira}\n`;
   formattedData += `Armador: ${selectedNavio.armador}\n`;
@@ -340,7 +388,21 @@ const handleDownload = () => {
             <>
               <label className="label">Posição Berço</label>
               <input className="input" type="text" value={posicaoBerco} onChange={(e) => setPosicaoBerco(e.target.value)} />
+
+
+              <h4>Responsável do Navio</h4>
+              <label className="label" htmlFor="responsavelNavio">
+                Nome:
+              </label>
+              <input
+                className="inputField"
+                id="responsavelNavio"
+                type="text"
+                value={responsavelNavio}
+                onChange={(event) => setResponsavelNavio(event.target.value)}
+                />
             </>
+
           )}
 
           <label className="label">Viagem</label>
@@ -377,8 +439,21 @@ const handleDownload = () => {
             <>
               <label className="label">Berço</label>
               <input className="input" type="number" min="1" max="3" value={berco} onChange={(e) => setBerco(e.target.value)} />
+              
+              <h4 style={{ visibility: 'hidden' }}>Nothing here</h4>
+              <label className="label" htmlFor="contatoResponsavel">
+                Celular:
+              </label>
+              <input
+                className="inputField"
+                id="contatoResponsavel"
+                type="text"
+                value={contatoResponsavel}
+                onChange={(event) => setContatoResponsavel(event.target.value)}
+              />
             </>
           )}
+
 
         </div>
       </div>

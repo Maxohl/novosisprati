@@ -21,6 +21,8 @@
     const [isLoading, setIsLoading] = useState(false);
     const [rebocadores, setRebocadores] = useState([]);
     const [selectedRebocador, setSelectedRebocador] = useState('');
+    const [responsavelNavio, setResponsavelNavio] = useState('');
+    const [contatoResponsavel, setContatoResponsavel] = useState('');
     const [showField, setShowField] = useState(true)
     const [servico, setServico] = useState(showField ? "ATRACACAO" : "LEITURA_DE_CALADO");
 
@@ -125,7 +127,9 @@
         !selectedNavio ||
         !data ||
         !hora ||
-        !viagem 
+        !viagem ||
+        !responsavelNavio ||
+        !contatoResponsavel
 
       ) {
         // Dispatch the warning message
@@ -154,6 +158,8 @@
         Fatu_requi: faturamento,
         rebocador_requi: selectedRebocador,
         isLancha: !showField,
+        responsavelNavio: responsavelNavio,
+        contatoResponsavel: contatoResponsavel
       };
     
       // Send the requisicaoData to the backend
@@ -386,6 +392,22 @@
                   <option value="VISTORIA_DE_CASCO">VISTORIA DE CASCO</option>
                 </select>
               )}
+
+              {showField && (
+                  <>
+                    <h4>Responsável pelo Navio</h4>
+                    <label className="label" htmlFor="responsavelNavio">
+                      Nome:
+                    </label>
+                    <input
+                      className="inputField"
+                      id="responsavelNavio"
+                      type="text"
+                      value={responsavelNavio}
+                      onChange={(event) => setResponsavelNavio(event.target.value)}
+                    />
+                  </>
+                )}
             
             <div className='ExtraArea'>
               <label className="label" htmlFor="obs">
@@ -440,6 +462,24 @@
                 value={viagem}
                 onChange={(event) => setViagem(event.target.value)}
               />
+
+              {showField && (
+                    <>
+                      
+                      <label className="label" htmlFor="contatoResponsavel">
+                        Celular:
+                      </label>
+                      <input
+                        className="inputField"
+                        id="contatoResponsavel"
+                        type="text"
+                        value={contatoResponsavel}
+                        onChange={(event) => setContatoResponsavel(event.target.value)}
+                      />
+                    </>
+                  )}
+
+
               <div className='ExtraArea'>
                 <label className="label" htmlFor="faturamento">
                   Faturamento:

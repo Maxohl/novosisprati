@@ -17,6 +17,8 @@
   flex-direction: column;
   align-items: center;
   margin: 10px;
+  width: 100%; /* Ensure it takes full width */
+  max-width: 900px; /* Increase this value to widen the content area */
 }
 
 /* Styles for the columns (splitting content into two columns) */
@@ -30,19 +32,21 @@
 
 /* Styles for each column */
 .column {
-  flex-basis: 48%; /* Adjust the width of columns */
+  flex-basis: 49%; /* Slightly increase from 48% to reduce outer space */
+  /* Optional: Use a min-width if you want more control */
+  /* min-width: 400px; */
 }
 
 /* Styles for labels */
 .label {
   display: block;
   margin-bottom: 0.5rem;
-  width: 100%; /* Labels take full width */
+  width: 100%; /* Labels take full width of their column */
 }
 
 /* Styles for input fields */
 .input {
-  width: 100%; /* Inputs take full width */
+  width: 100%; /* Inputs take full width of their column */
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -59,11 +63,11 @@
   margin-bottom: 1rem;
 }
 
+/* Rest of your CSS remains unchanged */
 .FatuField {
   margin-top: 5rem;
 }
 
-/* Styles for the NavioFilter button */
 .show-hide-button {
   display: flex;
   align-items: center;
@@ -78,15 +82,13 @@
   padding-bottom: 25px;
 }
 
-/* Styles for the radio buttons (centered) */
 .radio-buttons-container {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 10px; /* Space between radio buttons and buttons */
+  margin-top: 10px;
   margin-right: 50px;
-
 }
 
 .radio-container-label {
@@ -97,20 +99,19 @@
   display: flex;
   align-items: center;
   margin-right: 10px;
-  white-space: nowrap; /* Prevent text from breaking to new lines */
+  white-space: nowrap;
 }
 
 .radio-label input[type="radio"] {
   margin-right: 5px;
 }
 
-/* Styles for buttons (centered) */
 .buttons {
   display: flex;
-  justify-content: center; /* Center buttons horizontally */
+  justify-content: center;
   align-items: center;
   width: 100%;
-  margin-top: 20px; /* Space between buttons and bottom of the screen */
+  margin-top: 20px;
 }
 
 .button {
@@ -122,7 +123,6 @@
   cursor: pointer;
   width: 200px;
   margin-top: 1rem;
-  
   margin-right: 1rem;
 }
 
