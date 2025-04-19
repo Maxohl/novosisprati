@@ -3,22 +3,27 @@
 const jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-  console.log('Headers:', req.headers); // Log the headers to check if the Authorization header is present
-  const token = req.headers.authorization;
+  // Try reading token from header first
+  const authHeader = req.headers.authorization;
+  const tokenFromHeader = authHeader && authHeader.split(' ')[1]; // in case it's 'Bearer token'
+  
+  // Fallback: try reading token from cookies
+  const tokenFromCookie = req.cookies?.jwt;
+
+  const token = tokenFromHeader || tokenFromCookie;
 
   if (!token) {
     console.log('No token provided');
-    return res.status(401).json({ message: 'No token provided' });
+    return res.status(401).json({ error: 'Session expired, please log in again' });
   }
 
   jwt.verify(token, 'thesecretofalifetime', (err, decoded) => {
     if (err) {
-      console.log('Invalid token');
-      return res.status(401).json({ message: 'Invalid token' });
+      console.log('Invalid or expired token');
+      return res.status(401).json({ error: 'Session expired, please log in again' });
     }
 
     req.user = decoded;
-    console.log('Decoded token:', decoded);
     next();
   });
 }

@@ -16,40 +16,29 @@ function Requisicoes(props) {
   const flashMessageType = useSelector((state) => state.flashMessage.flashMessageType);
 
   const fetchRequisicoes = useCallback(async () => {
-    const flashTimeout = setTimeout(() => {
-      dispatch(setFlashMessage('', ''));
-    }, 3000);
+    const flashTimeout = setTimeout(() => dispatch(setFlashMessage('', '')), 3000);
     try {
-      const authStateCookie = document.cookie
-        .split('; ')
-        .find((row) => row.startsWith('_auth_state'));
-      if (!authStateCookie) {
+      const authCookie = document.cookie.split('; ').find((row) => row.startsWith('_auth'));
+      if (!authCookie) {
+        console.log('No _auth cookie, redirecting to login');
         navigate('/login');
         return;
       }
-
-      const IDCookie = document.cookie
-      .split(';')
-      .find((row) => row.startsWith('_auth'))
-      .split('=')[1];
-
-      const token = authStateCookie.split('=')[1];
-
-      const response = await axios.get(`${serverPort}/requisicoes`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'IDCookie' : IDCookie,
-        },
-        params: {
-          limit: 10,
-        },
+      const IDCookie = authCookie.split('=')[1];
+  
+      const { data } = await axios.get(`${serverPort}/requisicoes`, {
+        headers: { IDCookie },
+        params: { limit: 10 },
       });
-      console.log('Response:', response);
-      const { data } = response;
-      console.log('Fetched requisicoes:', data);
       setRequisicoes(data);
     } catch (error) {
-      console.error('Error fetching requisicoes:', error);
+      console.error('Error fetching requisicoes:', error.response?.data || error.message);
+      if (error.response?.status === 401) {
+        dispatch(setFlashMessage('Session expired, please log in again', 'error'));
+        navigate('/login');
+      } else if (error.response?.status === 400) {
+        dispatch(setFlashMessage(error.response.data.error || 'Invalid request', 'error'));
+      }
     }
     return () => clearTimeout(flashTimeout);
   }, [serverPort, navigate, dispatch]);

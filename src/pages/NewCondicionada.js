@@ -85,8 +85,6 @@ function NewCondicionada(props) {
 
         const token = authStateCookie.split('=')[1];
 
-        // Logging the stored token
-        console.log('Stored token:', token);
         const response = await axios.get(`${serverPort}/navios/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -152,8 +150,6 @@ function NewCondicionada(props) {
 
       const token = authStateCookie.split('=')[1];
 
-      // Logging the stored token
-      console.log('Stored token:', token);
       const response = await axios.post(`${serverPort}/condicionada`, payload, {
         headers: {
           Authorization: `Bearer ${token}`,

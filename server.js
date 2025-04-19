@@ -59,11 +59,14 @@ app.use(flash());
 
 const getUserIdFromIDCookie = (IDCookie) => {
   try {
-    const decoded = jwt.verify(IDCookie, process.env.SECRET);
+    const decoded = jwt.verify(IDCookie, process.env.SECRET); // <- this is where the token goes
     return decoded.id;
-  } catch (error) {
-    console.error('Error decoding IDCookie:', error);
-    throw new Error('Invalid IDCookie');
+  } catch (err) {
+    if (err.name === 'TokenExpiredError') {
+      console.error('Token expired');
+      throw new Error('Session expired, please log in again');
+    }
+    throw new Error('Invalid token');
   }
 };
 
@@ -120,6 +123,8 @@ async function checkCondi(ID_Navio, Data_requi, Hora_requi) {
           Fatu,
           ID_Agencia,
           Rebocador,
+          responsavel_navio,
+          contato_responsavel
  };
 
         resolve(requisicaoData);
@@ -659,14 +664,16 @@ app.post('/requisicoes', async (req, res) => {
       const {
         ID_NavioMain, Data: modifiedData, Hora_requi: modifiedHoraRequi, Viagem: modifiedViagem,
         Servico: modifiedRequi_servico, Berco: modifiedBerco_requi, Posicao_Berco: modifiedPosicao_requi,
-        OBS: modifiedObs_requi, Fatu: modifiedFatu_requi, ID_Agencia: modifiedID_Agencia, Rebocador
+        OBS: modifiedObs_requi, Fatu: modifiedFatu_requi, ID_Agencia: modifiedID_Agencia, Rebocador, responsavel_navio,
+        contato_responsavel
       } = requisicaoDataFromCondicionado;
 
       const DataCondicionado = {
         ID_Navio: ID_NavioMain, Data_requi: modifiedData, Hora_requi: modifiedHoraRequi,
         Requi_servico: modifiedRequi_servico, berco_requi: modifiedBerco_requi, posicao_requi: modifiedPosicao_requi,
         Obs_requi: modifiedObs_requi, Fatu_requi: modifiedFatu_requi, ID_Agencia: modifiedID_Agencia,
-        rebocador_requi: Rebocador, responsavelNavio: responsavelValue, contatoResponsavel: contatoValue
+        rebocador_requi: Rebocador, responsavelNavio: responsavel_navio,
+        contatoResponsavel: contato_responsavel
       };
 
       const insertQueryCondicionado = `
@@ -676,7 +683,7 @@ app.post('/requisicoes', async (req, res) => {
       await new Promise((resolve, reject) => {
         pool.query(
           insertQueryCondicionado,
-          [ID_NavioMain, modifiedData, modifiedHoraRequi, modifiedViagem, modifiedRequi_servico, modifiedBerco_requi, modifiedPosicao_requi, modifiedObs_requi, modifiedFatu_requi, modifiedID_Agencia, Rebocador, responsavelValue, contatoValue],
+          [ID_NavioMain, modifiedData, modifiedHoraRequi, modifiedViagem, modifiedRequi_servico, modifiedBerco_requi, modifiedPosicao_requi, modifiedObs_requi, modifiedFatu_requi, modifiedID_Agencia, Rebocador, responsavel_navio, contato_responsavel],
           (err, results) => {
             if (err) {
               console.error('Error inserting modified data:', err);
@@ -689,6 +696,7 @@ app.post('/requisicoes', async (req, res) => {
         );
       });
 
+      //check for second condicionada for the first one.
       const condicionadoData = await checkCondi(ID_NavioMain, modifiedData, modifiedHoraRequi);
       if (condicionadoData) {
         const {
@@ -1231,7 +1239,11 @@ app.post('/login', (req, res) => {
           res.status(401).json({ error: 'Invalid credentials' });
           return;
         }
-        const jwtToken = jwt.sign({ id: rows[0].ID_agencia, username: username }, process.env.SECRET);
+        const jwtToken = jwt.sign(
+          { id: rows[0].ID_agencia, username: username },
+          process.env.SECRET,
+          { expiresIn: '1d' }
+        );
         console.log('Login successful:', username);
         console.log('token: ', jwtToken);
         req.flash('success', 'Login successful');

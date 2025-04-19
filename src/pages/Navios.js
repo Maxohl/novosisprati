@@ -5,7 +5,7 @@ import './Navios.css';
 import NaviosForm from '../Components/NaviosForm';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { setFlashMessage } from '../Reducers/actions';
+import { setFlashMessage } from '../Reducers/actions';  
 
 const Navios = ({ serverPort }) => {
   const [navios, setNavios] = useState([]);
@@ -31,17 +31,20 @@ const Navios = ({ serverPort }) => {
         return;
       }
 
-      const IDCookie = document.cookie
-        .split(';')
-        .find((row) => row.startsWith('_auth'))
-        .split('=')[1];
+      const rawIDCookie = document.cookie
+        .split('; ')
+        .find((row) => row.startsWith('_auth='));
+      const IDCookie = rawIDCookie?.split('=')[1];
+
+      if (!IDCookie) {
+        console.warn('No IDCookie found');
+        navigate('/login');
+        return;
+}
 
       setIDCookie(IDCookie);
 
       const token = authStateCookie.split('=')[1];
-
-      // Logging the stored token
-      console.log('Stored token:', token);
 
       const response = await axios.get(`${serverPort}/navios`, {
         headers: {

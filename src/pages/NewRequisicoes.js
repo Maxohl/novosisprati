@@ -116,6 +116,14 @@
     useEffect(() => {
       setServico(showField ? "ATRACACAO" : "LEITURA_DE_CALADO");
     }, [showField]);
+
+    useEffect(() => {
+      if (showField) {
+        setBerco(1);
+      } else {
+        setBerco(null);
+      }
+    }, [showField]);
     
     
 
@@ -128,10 +136,11 @@
         !data ||
         !hora ||
         !viagem ||
-        !responsavelNavio ||
-        !contatoResponsavel
-
+        !servico ||
+        (showField && (!responsavelNavio || !contatoResponsavel))
+     
       ) {
+
         // Dispatch the warning message
         dispatch(
           setFlashMessage({
@@ -352,10 +361,10 @@
                   type="number"
                   min="1"
                   max="3"
-                  value={berco}
-                  onChange={(event) => setBerco(event.target.value)}
+                  value={berco ?? ''} 
+                  onChange={(event) => setBerco(Number(event.target.value))}
                 />
-            </>
+              </>
             )}
 
             <label className="label" htmlFor="servico">
@@ -371,7 +380,7 @@
                 >
                   <option value="ATRACACAO">ATRACAÇÃO</option>
                   <option value="DESATRACACAO">DESATRACAÇÃO</option>
-                  <option value="DESATRACAACAOF">DESATRACAÇÃO FUNDEIO</option>
+                  <option value="DESATRACACAOF">DESATRACAÇÃO FUNDEIO</option>
                   <option value="FUNDEIO_INTERNO">FUNDEIO INTERNO</option>
                   <option value="PUXADA">PUXADA</option>
                   <option value="REATRACACAO">REATRACACÃO</option>
