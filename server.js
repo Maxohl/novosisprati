@@ -19,12 +19,15 @@ require('dotenv').config();
  const buildPath = path.join(__dirname, 'build');
  
 
- app.use(cors({
-   origin: [
-     'http://novosisprati-990826f489ce.herokuapp.com',
-     'https://novosisprati-990826f489ce.herokuapp.com'
-   ]
- }));
+// app.use(cors({
+//   origin: [
+//     'http://novosisprati-990826f489ce.herokuapp.com',
+//     'https://novosisprati-990826f489ce.herokuapp.com'
+//   ]
+// }));
+app.use(cors({
+  origin: '*'
+}));
 
 
  app.use(express.static(buildPath));

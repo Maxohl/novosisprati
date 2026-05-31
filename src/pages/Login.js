@@ -36,6 +36,11 @@ const Login = ({ serverPort }) => {
       navigate('/');
     } catch (error) {
       console.error('Error logging in:', error);
+      if (error.response) {
+        console.log('Status:', error.response.status);
+        console.log('Data:', error.response.data);
+  }
+
     }
   };
 
