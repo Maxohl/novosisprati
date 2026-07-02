@@ -153,6 +153,23 @@
         }, 4000); // Clear the flash message after 4 seconds
         return;
       }
+
+      // === NEW BLOCK === 
+      const requestedDateTime = new Date(`${data}T${hora}`);
+      const now = new Date();
+      const timeDiffMs = requestedDateTime.getTime() - now.getTime();
+      const hoursDiff = timeDiffMs / (1000 * 60 * 60);
+
+      if (hoursDiff < 3) {
+        dispatch(
+          setFlashMessage({
+            message: 'A requisição deve ser feita com no mínimo 3 horas de antecedência!',
+            messageType: 'error',
+          })
+        );
+        setTimeout(() => dispatch(setFlashMessage('', '')), 4000);
+        return;
+      }
     
       // Prepare the data to be sent to the backend
       const requisicaoData = {
