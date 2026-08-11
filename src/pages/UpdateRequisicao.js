@@ -155,6 +155,27 @@ function UpdateRequisicao(props) {
 
 const handleSaveChanges = async () => {
   try {
+    // Combina a data e a hora selecionadas
+    const dataHoraRequisicao = new Date(data);
+    const [horas, minutos] = hora.split(':').map(Number);
+
+    dataHoraRequisicao.setHours(horas, minutos, 0, 0);
+
+    // Horário mínimo permitido: 3 horas a partir de agora
+    const agora = new Date();
+    const limiteMinimo = new Date(agora.getTime() + 3 * 60 * 60 * 1000);
+
+    // Verifica se a requisição respeita as 3 horas de antecedência
+    if (dataHoraRequisicao < limiteMinimo) {
+      dispatch(
+        setFlashMessage({
+          message: 'A requisição deve ser feita com pelo menos 3 horas de antecedência. Escolha um horário posterior.',
+          messageType: 'error',
+        })
+      );
+      return;
+    }
+
     const IDCookie = document.cookie
       .split(';')
       .find((row) => row.startsWith('_auth'))
@@ -162,7 +183,7 @@ const handleSaveChanges = async () => {
 
     const token = document.cookie.split('=')[1];
 
-// Get the UTC date string in the desired format
+    // Get the UTC date string in the desired format
     const utcDateString = data.toISOString().split('T')[0];
 
     const requestData = {
@@ -199,13 +220,12 @@ const handleSaveChanges = async () => {
         messageType: 'success',
       })
     );
+
     navigate('/requisicoes');
   } catch (error) {
     console.error('Error updating requisicao:', error);
   }
-};
-
-  
+};  
 
 const handleDeleteRequisicao = () => {
   const confirmed = window.confirm('Voçê tem certeza que deseja cancelar essa Requisição?');
