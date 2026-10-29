@@ -155,21 +155,26 @@
       }
 
       // === NEW BLOCK === 
+      // Validate the minimum advance time based on the selected service
       const requestedDateTime = new Date(`${data}T${hora}`);
       const now = new Date();
+
+      const minimumHours = servico === 'DESATRACACAO' ? 2 : 3;
       const timeDiffMs = requestedDateTime.getTime() - now.getTime();
       const hoursDiff = timeDiffMs / (1000 * 60 * 60);
 
-      if (hoursDiff < 3) {
+      if (hoursDiff < minimumHours) {
         dispatch(
           setFlashMessage({
-            message: 'A requisição deve ser feita com no mínimo 3 horas de antecedência!',
+            message: `A requisição de ${servico === 'DESATRACACAO' ? 'desatracação' : 'serviço'} deve ser feita com no mínimo ${minimumHours} horas de antecedência!`,
             messageType: 'error',
           })
         );
+
         setTimeout(() => dispatch(setFlashMessage('', '')), 4000);
         return;
       }
+
     
       // Prepare the data to be sent to the backend
       const requisicaoData = {
@@ -268,35 +273,40 @@
 };
 
 
+
   const handleHoraChange = (event) => {
     const selectedTime = event.target.value;
-    const selectedDate = data; // Get the selected date from the state
+    const selectedDate = data;
 
-    const currentDate = new Date().toISOString().split('T')[0];
+    const now = new Date();
+
+    // Use local date formatting to avoid UTC/timezone issues
+    const currentDate =
+      `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
     const isSameDate = selectedDate === currentDate;
+    const minimumHours = servico === 'DESATRACACAO' ? 2 : 3;
 
-    if (isSameDate) {
-      const selectedHour = parseInt(selectedTime.split(':')[0]);
-      const selectedMinute = parseInt(selectedTime.split(':')[1]);
+    if (isSameDate && selectedTime) {
+      const [selectedHour, selectedMinute] = selectedTime.split(':').map(Number);
 
-      const currentHour = new Date().getHours();
-      const currentMinute = new Date().getMinutes();
+      const selectedDateTime = new Date(selectedDate);
+      selectedDateTime.setHours(selectedHour, selectedMinute, 0, 0);
 
-      const timeDiff = selectedHour * 60 + selectedMinute - (currentHour * 60 + currentMinute);
+      const timeDiffMs = selectedDateTime.getTime() - now.getTime();
+      const minimumTimeMs = minimumHours * 60 * 60 * 1000;
 
-      if (timeDiff < 180) {
-        // Show a warning message or set a flag to indicate the invalid time selection
+      if (timeDiffMs < minimumTimeMs) {
         dispatch(
           setFlashMessage({
-            message: 'Aviso! Requisição precisa ser feita com 3 horas de antecedência',
+            message: `Aviso! A requisição precisa ser feita com ${minimumHours} horas de antecedência.`,
             messageType: 'warning',
           })
         );
+
         setTimeout(() => {
           dispatch(setFlashMessage('', ''));
-        }, 3000); // Clear the flash message after 3 seconds
-        setHora(selectedTime);
-        return;
+        }, 3000);
       }
     }
 

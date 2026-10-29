@@ -426,6 +426,7 @@ function UpdateRequisicao(props) {
    */
 
   const handleSaveChanges = async () => {
+    const ENABLE_THREE_HOUR_VALIDATION = false;
     if (isSaving) {
       return;
     }
@@ -509,23 +510,37 @@ function UpdateRequisicao(props) {
        * Tomorrow at any reasonable time -> accepted.
        */
 
-      const agora = new Date();
+      
+      const servicoNormalizado = String(servico || '')
+        .trim()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toUpperCase();
 
-      const limiteMinimo = new Date(
-        agora.getTime() + 3 * 60 * 60 * 1000
-      );
+      const isDesatracacao = servicoNormalizado === 'DESATRACACAO';
 
-      if (dataHoraRequisicao.getTime() < limiteMinimo.getTime()) {
-        dispatch(
-          setFlashMessage({
-            message:
-              'A requisição deve ser feita com pelo menos 3 horas de antecedência. Escolha um horário posterior.',
-            messageType: 'error',
-          })
+      if (ENABLE_THREE_HOUR_VALIDATION && !isDesatracacao) {
+        const agora = new Date();
+
+        const limiteMinimo = new Date(
+          agora.getTime() + 3 * 60 * 60 * 1000
         );
 
-        return;
+        if (
+          dataHoraRequisicao.getTime() < limiteMinimo.getTime()
+        ) {
+          dispatch(
+            setFlashMessage({
+              message:
+                'A requisição deve ser feita com pelo menos 3 horas de antecedência. Escolha um horário posterior.',
+              messageType: 'error',
+            })
+          );
+
+          return;
+        }
       }
+
 
       /*
        * --------------------------------------------------------
@@ -975,6 +990,22 @@ function UpdateRequisicao(props) {
   return (
     <div style={{ paddingBottom: '100px' }}>
       <h1 className="title">Atualizar Requisição</h1>
+      {flashMessage && (
+  <div
+    className={`flash-message ${flashMessageType || 'error'}`}
+    role="alert"
+    style={{
+      padding: '12px 16px',
+      margin: '12px 0',
+      border: '1px solid #dc3545',
+      borderRadius: '5px',
+      color: '#b02a37',
+      backgroundColor: '#f8d7da',
+    }}
+  >
+    {flashMessage}
+  </div>
+)}
       
       <div className="btn-container">
         <button
@@ -1001,7 +1032,7 @@ function UpdateRequisicao(props) {
           </select>
   
           <label className="label">Data</label>
-          <input className="input" type="date" value={data.toISOString().slice(0, 10)} onChange={(e) => setData(new Date(e.target.value))} min={formatDate(new Date())} />
+          <input className="input" type="date" value={formatDate(data)} onChange={(e) => setData(parseLocalDate(e.target.value))} min={formatDate(new Date())} />
   
           {showField && (
             <>
