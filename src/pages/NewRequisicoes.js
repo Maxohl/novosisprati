@@ -233,7 +233,7 @@
       // A requisition already exists at the selected date and time
       dispatch(
         setFlashMessage({
-          message: 'Já existe uma requisição para esse horário.',
+          message: 'Já existe uma requisição a menos de 1 hora deste horário. Escolha outro horário.',
           messageType: 'error',
         })
       );
@@ -267,7 +267,19 @@
     );
     navigate('/requisicoes');
   } catch (error) {
-    console.log('Error sending Requisicao:', error);
+    console.error('Error sending Requisicao:', error);
+
+    const errorMessage =
+      error.response?.data?.error ||
+      'Não foi possível realizar a requisição. Tente novamente.';
+
+    dispatch(
+      setFlashMessage({
+        message: errorMessage,
+        messageType: 'error'
+      })
+    );
+
     setIsLoading(false);
   }
 };
